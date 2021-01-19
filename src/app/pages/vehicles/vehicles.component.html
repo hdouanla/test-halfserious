@@ -1,0 +1,90 @@
+<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
+  <img class="mr-3" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
+  <div class="lh-100">
+    <h6 class="mb-0 text-white lh-100">Vehicles and pilots listing</h6>
+    <small>Star wars Film</small>
+  </div>
+</div>
+
+<ng-container [ngSwitch]="viewMode">
+  <div class="my-3 p-3 bg-white rounded box-shadow" *ngSwitchCase="ViewModes.Vehicles">
+    <h6 class="pb-2 mb-0">Liste des vehicules</h6>
+    <div class="media text-muted pt-3" *ngFor="let vehicle of vehicles">
+      <img [src]="getVehicleRandomImage()" alt="" class="mr-2 rounded thumb-image">
+      <a
+        href="javascript:void(0)"
+        class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray"
+        (click)="selectVehicle(vehicle)"
+      >
+        <strong class="d-block text-gray-dark">{{ vehicle.name }}</strong>
+        {{ vehicle.manufacturer }}
+      </a>
+    </div>
+  </div>
+  <div class="my-3 p-3 bg-white rounded box-shadow" *ngSwitchCase="ViewModes.Details">
+    <div class="pt-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+            <h6 class="pb-2 mb-2">Spécifications de <strong>{{ selectedVehicle.name }}</strong></h6>
+            <div class="card">
+              <div class="card-body">
+                <p><strong>Nom du pilote</strong>: {{ selectedVehicle.name }}</p>
+                <p><strong>Modèle</strong>: {{ selectedVehicle.model }}</p>
+                <p><strong>Manufacturier</strong>: {{ selectedVehicle.manufacturer }}</p>
+                <p><strong>Cost in credits</strong>: {{ selectedVehicle.cost_in_credits }}</p>
+                <p><strong>length</strong>: {{ selectedVehicle.length }}</p>
+                <p><strong>Max atmosphering speed</strong>: {{ selectedVehicle.max_atmosphering_speed }}</p>
+                <p><strong>crew</strong>: {{ selectedVehicle.crew }}</p>
+                <p><strong>passengers</strong>: {{ selectedVehicle.passengers }}</p>
+                <p><strong>Cargo capacity</strong>: {{ selectedVehicle.cargo_capacity }}</p>
+                <p><strong>Consumables</strong>: {{ selectedVehicle.consumables }}</p>
+                <p><strong>Vehicle class</strong>: {{ selectedVehicle.vehicle_class }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <h6 class="pb-2 mb-2">Pilotes de <strong>{{ selectedVehicle.name }}</strong></h6>
+            <ul class="list-group" *ngIf="selectedVehicle.pilots && selectedVehicle.pilots.length">
+              <li class="list-group-item" *ngFor="let pilot of selectedVehicle.pilots">
+                <a href="javascript:void(0)" (click)="selectPilot(pilots[pilot])">{{ pilots[pilot].name }}</a>
+              </li>
+            </ul>
+            <div class="alert alert-warning" role="alert" *ngIf="selectedVehicle.pilots.length === 0">
+              Ce vaisseau n'a pas de pilote
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <small class="d-block text-right mt-3">
+      <a href="jsvascript:void()" (click)="backToVehicles()">Retour aux vehicules</a>
+    </small>
+  </div>
+  <div class="my-3 p-3 bg-white rounded box-shadow" *ngSwitchCase="ViewModes.Pilot">
+    <div class="media text-muted pt-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+            <h6 class="pb-2 mb-2">Photo de <strong>{{ selectedPilot.name }}</strong></h6>
+            <img [src]="getVehicleRandomImage()" class="img-fluid">
+          </div>
+          <div class="col-6">
+            <h6 class="pb-2 mb-2">Informations sur <strong>{{ selectedPilot.name }}</strong></h6>
+            <p><strong>Name</strong>: {{ selectedPilot.name }}</p>
+            <p><strong>Height</strong>: {{ selectedPilot.height }}</p>
+            <p><strong>Mass</strong>: {{ selectedPilot.mass }}</p>
+            <p><strong>Hair Color</strong>: {{ selectedPilot.hair_color }}</p>
+            <p><strong>Skin Color</strong>: {{ selectedPilot.skin_color }}</p>
+            <p><strong>Eye Color</strong>: {{ selectedPilot.eye_color }}</p>
+            <p><strong>Birth Year</strong>: {{ selectedPilot.birth_year }}</p>
+            <p><strong>Gender</strong>: {{ selectedPilot.gender }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <small class="d-block text-right mt-3">
+      <a href="jsvascript:void()" (click)="backToPilots()">Retour aux pilotes</a>
+    </small>
+  </div>
+</ng-container>

@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Star Wars</a>
+  <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+</nav>
+
+<div class="nav-scroller bg-white box-shadow">
+  <nav class="nav nav-underline">
+    <a class="nav-link" [routerLink]="['']" routerLinkActive="active">Accueil</a>
+    <a class="nav-link" [routerLink]="['/vaisseaux']" routerLinkActive="active">Vaisseaux</a>
+  </nav>
+</div>
+
+<main role="main" class="container">
+  <router-outlet></router-outlet>
+</main>
